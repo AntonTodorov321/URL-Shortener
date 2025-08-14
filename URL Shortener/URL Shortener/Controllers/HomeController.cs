@@ -1,9 +1,11 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using URL_Shortener.Models;
-
 namespace URL_Shortener.Controllers
 {
+    using System.Diagnostics;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using URL_Shortener.Models;
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -14,11 +16,6 @@ namespace URL_Shortener.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }
