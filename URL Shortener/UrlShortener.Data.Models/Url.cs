@@ -8,6 +8,8 @@
 
         public string ShortCode { get; set; }
 
+        public int Views { get; set; }
+
         public DateTime CreatedOn { get; set; }
     }
 }
