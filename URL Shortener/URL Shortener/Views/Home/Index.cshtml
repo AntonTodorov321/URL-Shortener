@@ -4,12 +4,12 @@
 
 <div class="text-center">
     <form asp-controller="Home" asp-action="Shortener" method="post">
-        <label for="longUrl">Enter url here</label>
+        <label for="url">Enter url here</label>
         <br />
         <br />
-        <input type="text" name="longUrl" id="longUrl" style="width: 300px" />
+        <input type="text" name="url" id="url" style="width: 300px" />
         <br />
         <br />
-        <button asp-controller="Home" asp-action="Shortener" type="submit">Submit</button>
+        <button type="submit">Submit</button>
     </form>
 </div>

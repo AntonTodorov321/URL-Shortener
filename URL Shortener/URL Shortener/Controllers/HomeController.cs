@@ -20,6 +20,14 @@ namespace URL_Shortener.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Shortener(string url)
+        {
+            Console.WriteLine(url);
+            return null;
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
