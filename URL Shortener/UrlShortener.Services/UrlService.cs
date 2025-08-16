@@ -26,7 +26,7 @@
             {
                 OriginalUrl = longUrl,
                 CreatedOn = DateTime.Now,
-                ShortCode = shortUrl
+                ShortUrl = shortUrl
             };
 
             dbContext.Urls.Add(newUrl);
@@ -41,8 +41,9 @@
                             .Where(url => url.Id == id)
                             .Select(url => new UrlViewModel()
                             {
+                                Id = url.Id,
                                 LongUrl = url.OriginalUrl,
-                                ShortUrl = url.ShortCode
+                                ShortUrl = url.ShortUrl,
                             }).FirstOrDefaultAsync();
 
             return url!;

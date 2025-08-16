@@ -1,5 +1,6 @@
 ﻿namespace UrlShortener.Data.Models
 {
+    //TODO: Add restriction
     public class Url
     {
         public Url()
@@ -11,9 +12,9 @@
 
         public string OriginalUrl { get; set; } = null!;
 
-        public string ShortCode { get; set; } = null!;
+        public string ShortUrl { get; set; } = null!;
 
-        public int Views { get; set; }
+        public string SecretCode { get; set; } = null!;
 
         public DateTime CreatedOn { get; set; }
     }

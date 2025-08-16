@@ -19,7 +19,7 @@
             return View();
         }
 
-        public IActionResult Details(string shortUrl)
+        public IActionResult Details(string id)
         {
             return View();
         }
@@ -38,5 +38,7 @@
 
             return View(viewModel);
         }
+
+        //TODO: Add error view
     }
 }
