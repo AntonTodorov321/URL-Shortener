@@ -7,5 +7,7 @@
         Task<Guid> ShorterUrl(string url);
 
         Task<UrlViewModel> GetUrlById(Guid id);
+
+        Task<string> GetOriginalUrlByShortUrl(string shortUrl);
     }
 }

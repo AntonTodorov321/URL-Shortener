@@ -3,9 +3,16 @@
 <h2>URL Shortener Result</h2>
 
 <br/>
-<p><strong>Original URL:</strong> @Model.LongUrl</p>
+
 <p>
     <strong>Short URL:</strong> 
-    <a asp-controller="Url" asp-action="Details"
-    asp-route-id="@Model.Id">@Model.ShortUrl</a>
+    <a asp-controller="Url" asp-action="RedirectToLong" asp-route-shortUrl="@Model.ShortUrl">
+    @Model.ShortUrl
+    </a>
+</p>
+
+<p>
+    <strong>Secret code:</strong> 
+    <a asp-controller="Url" asp-action="Statistic"
+    asp-route-secretCode="@Model.SecretCode">@Model.SecretCode</a>
 </p>

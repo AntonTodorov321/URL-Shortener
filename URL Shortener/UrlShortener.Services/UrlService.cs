@@ -20,13 +20,15 @@
 
         public async Task<Guid> ShorterUrl(string longUrl)
         {
-            string shortUrl = GenerateShortenUrl();
+            string shortUrl = GenerateHash(8);
+            string secretCode = GenerateHash(16);
 
             Url newUrl = new Url()
             {
                 OriginalUrl = longUrl,
+                ShortUrl = shortUrl,
+                SecretCode = secretCode,
                 CreatedOn = DateTime.Now,
-                ShortUrl = shortUrl
             };
 
             dbContext.Urls.Add(newUrl);
@@ -41,29 +43,37 @@
                             .Where(url => url.Id == id)
                             .Select(url => new UrlViewModel()
                             {
-                                Id = url.Id,
-                                LongUrl = url.OriginalUrl,
                                 ShortUrl = url.ShortUrl,
+                                SecretCode = url.SecretCode,
                             }).FirstOrDefaultAsync();
 
             return url!;
         }
 
-        //TODO: make this method with constants 
-        private static string GenerateShortenUrl()
+        public async Task<string> GetOriginalUrlByShortUrl(string shortUrl)
         {
-            byte[] bytes = new byte[8];
+            var longUrl = await dbContext.Urls.Where(url => url.ShortUrl == shortUrl)
+                .Select(url => url.OriginalUrl)
+                .FirstOrDefaultAsync();
+
+            return longUrl!;
+        }
+
+        private static string GenerateHash(int length)
+        {
+            byte[] bytes = new byte[length];
             RandomNumberGenerator.Fill(bytes);
 
             const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            char[] result = new char[8];
+            char[] result = new char[length];
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < length; i++)
             {
                 result[i] = chars[bytes[i] % chars.Length];
             }
 
             return new string(result);
         }
+
     }
 }

@@ -24,6 +24,14 @@
             return View();
         }
 
+        //TODO: check for null
+        public async Task<IActionResult> RedirectToLong(string shortUrl)
+        {
+            string originalUrl = await urlService.GetOriginalUrlByShortUrl(shortUrl);
+
+            return Redirect(originalUrl);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Shorter(string url)
         {
@@ -32,6 +40,7 @@
             return RedirectToAction("Shorter", new { id });
         }
 
+        //TOOD: check for null
         public async Task<IActionResult> Shorter(Guid id)
         {
             UrlViewModel viewModel = await urlService.GetUrlById(id);

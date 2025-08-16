@@ -1,6 +1,6 @@
 ﻿namespace UrlShortener.Data.Models
 {
-    //TODO: Add restriction
+    //TODO: Add restriction and validations
     public class Url
     {
         public Url()
