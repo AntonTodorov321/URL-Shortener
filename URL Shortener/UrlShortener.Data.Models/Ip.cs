@@ -2,8 +2,13 @@
 {
     public class Ip
     {
-        public int Id { get; set; }
+        public Ip()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        public string UserIp { get; set; }
+        public Guid Id { get; set; }
+
+        public string UserIp { get; set; } = null!;
     }
 }

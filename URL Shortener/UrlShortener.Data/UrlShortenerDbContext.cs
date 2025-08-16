@@ -2,7 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
 
-    using UrlShortener.Data.Models;
+    using Models;
 
     public class UrlShortenerDbContext : DbContext
     {

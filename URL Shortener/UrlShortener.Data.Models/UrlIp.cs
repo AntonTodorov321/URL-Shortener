@@ -2,9 +2,9 @@
 {
     public class UrlIp
     {
-        public int UrlId { get; set; }
+        public Guid UrlId { get; set; }
 
-        public int IpId { get; set; }
+        public Guid IpId { get; set; }
 
         public int TimesOpened { get; set; }
     }

@@ -2,11 +2,16 @@
 {
     public class Url
     {
-        public int Id { get; set; }
+        public Url()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        public string OriginalUrl { get; set; }
+        public Guid Id { get; set; }
 
-        public string ShortCode { get; set; }
+        public string OriginalUrl { get; set; } = null!;
+
+        public string ShortCode { get; set; } = null!;
 
         public int Views { get; set; }
 
