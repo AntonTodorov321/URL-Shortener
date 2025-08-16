@@ -1,5 +1,7 @@
 ﻿namespace UrlShortener.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
 
     using Services.Interfaces;
@@ -19,15 +21,16 @@
             return View();
         }
 
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Statistic(Guid urlId)
         {
+            StatisticUrlViewModel viewModel = await urlService.GetStatistics(urlId);
             return View();
         }
 
         //TODO: check for null
         public async Task<IActionResult> RedirectToLong(Guid urlId)
         {
-            string originalUrl = await urlService.GetOriginalUrlById(urlId);
+            string originalUrl = await urlService.GetOriginalUrl(urlId);
 
             string userIp = HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault() ??
                             HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString()!;
@@ -48,7 +51,7 @@
         //TOOD: check for null
         public async Task<IActionResult> Shorter(Guid id)
         {
-            UrlViewModel viewModel = await urlService.GetUrlById(id);
+            UrlViewModel viewModel = await urlService.GetUrl(id);
 
             return View(viewModel);
         }

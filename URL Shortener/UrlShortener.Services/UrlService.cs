@@ -37,7 +37,7 @@
             return newUrl.Id;
         }
 
-        public async Task<UrlViewModel> GetUrlById(Guid id)
+        public async Task<UrlViewModel> GetUrl(Guid id)
         {
             var url = await dbContext.Urls
                             .Where(url => url.Id == id)
@@ -51,7 +51,7 @@
             return url!;
         }
 
-        public async Task<string> GetOriginalUrlById(Guid id)
+        public async Task<string> GetOriginalUrl(Guid id)
         {
             var longUrl = await dbContext.Urls.Where(url => url.Id == id)
                 .Select(url => url.OriginalUrl)
@@ -60,6 +60,43 @@
             return longUrl!;
         }
 
+        public async Task RecordAccess(string ip, Guid urlId)
+        {
+            await dbContext.UrlVisits.AddAsync(new UrlVisits()
+            {
+                IpAddress = ip,
+                UrlId = urlId,
+                VisitedAt = DateTime.UtcNow
+            });
+
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<StatisticUrlViewModel> GetStatistics(Guid id)
+        {
+            int views = await dbContext.UrlVisits
+                .Where(uv => uv.UrlId == id && uv.VisitedAt.Day == DateTime.UtcNow.Day)
+                .GroupBy(uv => uv.IpAddress)
+                .CountAsync();
+
+            List<TopVisitsViewModel> topVisits = await dbContext.UrlVisits
+                .Where(uv => uv.UrlId == id)
+                .GroupBy(uv => uv.IpAddress)
+                .Select(g => new TopVisitsViewModel
+                {
+                    Ip = g.Key,
+                    Count = g.Count()
+                })
+                .OrderByDescending(x => x.Count)
+                .Take(10)
+                .ToListAsync();
+
+            return new StatisticUrlViewModel()
+            {
+                Views = views,
+                TopVisits = topVisits
+            };
+        }
         private static string GenerateHash(int length)
         {
             byte[] bytes = new byte[length];
@@ -74,18 +111,6 @@
             }
 
             return new string(result);
-        }
-
-        public async Task RecordAccess(string ip, Guid urlId)
-        {
-            await dbContext.UrlVisits.AddAsync(new UrlVisits()
-            {
-                IpAddress = ip,
-                UrlId = urlId,
-                VisitedAt = DateTime.UtcNow
-            });
-
-            await dbContext.SaveChangesAsync();
         }
     }
 }

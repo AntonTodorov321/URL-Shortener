@@ -6,10 +6,12 @@
     {
         Task<Guid> ShorterUrl(string url);
 
-        Task<UrlViewModel> GetUrlById(Guid id);
+        Task<UrlViewModel> GetUrl(Guid id);
 
-        Task<string> GetOriginalUrlById(Guid id);
+        Task<string> GetOriginalUrl(Guid id);
 
         Task RecordAccess(string ip, Guid urlId);
+
+        Task<StatisticUrlViewModel> GetStatistics(Guid id);
     }
 }
