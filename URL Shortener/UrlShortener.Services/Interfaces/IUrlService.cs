@@ -4,6 +4,8 @@
 
     public interface IUrlService
     {
-        Task<LongUrlViewModel> ShorterUrl(string url);
+        Task<Guid> ShorterUrl(string url);
+
+        Task<UrlViewModel> GetUrlById(Guid id);
     }
 }

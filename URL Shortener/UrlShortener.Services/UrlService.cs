@@ -2,6 +2,8 @@
 {
     using System.Security.Cryptography;
 
+    using Microsoft.EntityFrameworkCore;
+
     using Data;
     using Data.Models;
     using Interfaces;
@@ -16,7 +18,7 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<LongUrlViewModel> ShorterUrl(string longUrl)
+        public async Task<Guid> ShorterUrl(string longUrl)
         {
             string shortUrl = GenerateShortenUrl();
 
@@ -30,13 +32,23 @@
             dbContext.Urls.Add(newUrl);
             await dbContext.SaveChangesAsync();
 
-            return new LongUrlViewModel()
-            {
-                LongUrl = longUrl,
-                ShortUrl = shortUrl
-            };
+            return newUrl.Id;
         }
 
+        public async Task<UrlViewModel> GetUrlById(Guid id)
+        {
+            var url = await dbContext.Urls
+                            .Where(url => url.Id == id)
+                            .Select(url => new UrlViewModel()
+                            {
+                                LongUrl = url.OriginalUrl,
+                                ShortUrl = url.ShortCode
+                            }).FirstOrDefaultAsync();
+
+            return url!;
+        }
+
+        //TODO: make this method with constants 
         private static string GenerateShortenUrl()
         {
             byte[] bytes = new byte[8];

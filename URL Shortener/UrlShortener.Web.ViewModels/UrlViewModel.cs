@@ -1,6 +1,6 @@
 ﻿namespace UrlShortener.Web.ViewModels
 {
-    public class LongUrlViewModel
+    public class UrlViewModel
     {
         public string LongUrl { get; set; } = null!;
 

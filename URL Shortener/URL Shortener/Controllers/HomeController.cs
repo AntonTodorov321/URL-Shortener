@@ -6,8 +6,8 @@ namespace UrlShortener.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     using Models;
-    using Web.ViewModels;
     using Services.Interfaces;
+    using Web.ViewModels;
 
     public class HomeController : Controller
     {
@@ -24,10 +24,18 @@ namespace UrlShortener.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Shortener(string url)
+        public async Task<IActionResult> Shorter(string url)
         {
-            LongUrlViewModel longUrl = await urlService.ShorterUrl(url);
-            return null;
+            Guid id = await urlService.ShorterUrl(url);
+
+            return RedirectToAction("Shorter", new { id });
+        }
+
+        public async Task<IActionResult> Shorter(Guid id)
+        {
+            UrlViewModel viewModel = await urlService.GetUrlById(id);
+
+            return View(viewModel);
         }
 
 
