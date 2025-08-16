@@ -1,0 +1,11 @@
+﻿@model UrlViewModel
+
+<h2>URL Shortener Result</h2>
+
+<br/>
+<p><strong>Original URL:</strong> @Model.LongUrl</p>
+<p>
+    <strong>Short URL:</strong> 
+    <a asp-controller="Url" asp-action="Details"
+    asp-route-shortUrl="@Model.ShortUrl">@Model.ShortUrl</a>
+</p>

@@ -2,9 +2,9 @@ namespace UrlShortener
 {
     using Microsoft.EntityFrameworkCore;
 
-    using UrlShortener.Data;
-    using UrlShortener.Services;
-    using UrlShortener.Services.Interfaces;
+    using Data;
+    using Services;
+    using Services.Interfaces;
 
     public class Program
     {
@@ -31,11 +31,9 @@ namespace UrlShortener
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Url}/{action=Home}");
 
             app.Run();
         }

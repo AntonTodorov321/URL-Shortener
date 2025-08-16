@@ -1,24 +1,25 @@
-namespace UrlShortener.Controllers
+﻿namespace UrlShortener.Controllers
 {
-    using System.Diagnostics;
-    using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Mvc;
 
-    using Models;
     using Services.Interfaces;
     using Web.ViewModels;
 
-    public class HomeController : Controller
+    public class UrlController : Controller
     {
         private readonly IUrlService urlService;
 
-        public HomeController(IUrlService urlService)
+        public UrlController(IUrlService urlService)
         {
             this.urlService = urlService;
         }
 
-        public IActionResult Index()
+        public IActionResult Home()
+        {
+            return View();
+        }
+
+        public IActionResult Details(string shortUrl)
         {
             return View();
         }
@@ -36,13 +37,6 @@ namespace UrlShortener.Controllers
             UrlViewModel viewModel = await urlService.GetUrlById(id);
 
             return View(viewModel);
-        }
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
