@@ -1,8 +1,10 @@
-namespace URL_Shortener
+namespace UrlShortener
 {
     using Microsoft.EntityFrameworkCore;
 
     using UrlShortener.Data;
+    using UrlShortener.Services;
+    using UrlShortener.Services.Interfaces;
 
     public class Program
     {
@@ -19,6 +21,8 @@ namespace URL_Shortener
                     options.UseSqlServer(connectionString));
 
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IUrlService, UrlService>();
 
             WebApplication app = builder.Build();
 

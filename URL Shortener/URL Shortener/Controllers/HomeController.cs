@@ -1,18 +1,21 @@
-namespace URL_Shortener.Controllers
+namespace UrlShortener.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
-    using URL_Shortener.Models;
+    using Models;
+    using Web.ViewModels;
+    using Services.Interfaces;
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IUrlService urlService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUrlService urlService)
         {
-            _logger = logger;
+            this.urlService = urlService;
         }
 
         public IActionResult Index()
@@ -21,9 +24,9 @@ namespace URL_Shortener.Controllers
         }
 
         [HttpPost]
-        public IActionResult Shortener(string url)
+        public async Task<IActionResult> Shortener(string url)
         {
-            Console.WriteLine(url);
+            LongUrlViewModel longUrl = await urlService.ShorterUrl(url);
             return null;
         }
 

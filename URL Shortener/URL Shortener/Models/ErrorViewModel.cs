@@ -1,4 +1,4 @@
-namespace URL_Shortener.Models
+namespace UrlShortener.Models
 {
     public class ErrorViewModel
     {

@@ -1,7 +1,9 @@
 ﻿namespace UrlShortener.Services.Interfaces
 {
+    using Web.ViewModels;
+
     public interface IUrlService
     {
-        void ShortenerUrl(string url);
+        Task<LongUrlViewModel> ShorterUrl(string url);
     }
 }
