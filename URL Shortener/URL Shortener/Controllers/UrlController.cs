@@ -25,9 +25,14 @@
         }
 
         //TODO: check for null
-        public async Task<IActionResult> RedirectToLong(string shortUrl)
+        public async Task<IActionResult> RedirectToLong(Guid urlId)
         {
-            string originalUrl = await urlService.GetOriginalUrlByShortUrl(shortUrl);
+            string originalUrl = await urlService.GetOriginalUrlById(urlId);
+
+            string userIp = HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault() ??
+                            HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString()!;
+
+            await urlService.RecordAccess(userIp, urlId);
 
             return Redirect(originalUrl);
         }

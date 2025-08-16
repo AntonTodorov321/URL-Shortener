@@ -8,6 +8,8 @@
 
         Task<UrlViewModel> GetUrlById(Guid id);
 
-        Task<string> GetOriginalUrlByShortUrl(string shortUrl);
+        Task<string> GetOriginalUrlById(Guid id);
+
+        Task RecordAccess(string ip, Guid urlId);
     }
 }

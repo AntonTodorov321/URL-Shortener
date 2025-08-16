@@ -28,7 +28,7 @@
                 OriginalUrl = longUrl,
                 ShortUrl = shortUrl,
                 SecretCode = secretCode,
-                CreatedOn = DateTime.Now,
+                CreatedOn = DateTime.UtcNow,
             };
 
             dbContext.Urls.Add(newUrl);
@@ -43,6 +43,7 @@
                             .Where(url => url.Id == id)
                             .Select(url => new UrlViewModel()
                             {
+                                Id = url.Id,
                                 ShortUrl = url.ShortUrl,
                                 SecretCode = url.SecretCode,
                             }).FirstOrDefaultAsync();
@@ -50,9 +51,9 @@
             return url!;
         }
 
-        public async Task<string> GetOriginalUrlByShortUrl(string shortUrl)
+        public async Task<string> GetOriginalUrlById(Guid id)
         {
-            var longUrl = await dbContext.Urls.Where(url => url.ShortUrl == shortUrl)
+            var longUrl = await dbContext.Urls.Where(url => url.Id == id)
                 .Select(url => url.OriginalUrl)
                 .FirstOrDefaultAsync();
 
@@ -75,5 +76,16 @@
             return new string(result);
         }
 
+        public async Task RecordAccess(string ip, Guid urlId)
+        {
+            await dbContext.UrlVisits.AddAsync(new UrlVisits()
+            {
+                IpAddress = ip,
+                UrlId = urlId,
+                VisitedAt = DateTime.UtcNow
+            });
+
+            await dbContext.SaveChangesAsync();
+        }
     }
 }
