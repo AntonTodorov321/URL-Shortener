@@ -8,6 +8,7 @@
     using Data.Models;
     using Interfaces;
     using Web.ViewModels;
+    using static Common.GeneralApplicationConstants;
 
     public class UrlService : IUrlService
     {
@@ -27,8 +28,8 @@
                 return url.Id;
             }
 
-            string shortUrl = GenerateHash(8);
-            string secretCode = GenerateHash(16);
+            string shortUrl = GenerateHash(ShortUrlLength);
+            string secretCode = GenerateHash(SecretCodeLength);
 
             Url newUrl = new Url()
             {
@@ -110,7 +111,8 @@
             byte[] bytes = new byte[length];
             RandomNumberGenerator.Fill(bytes);
 
-            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const string chars = Base62Characters;
+
             char[] result = new char[length];
 
             for (int i = 0; i < length; i++)

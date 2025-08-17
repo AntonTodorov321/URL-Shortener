@@ -7,6 +7,9 @@
     using Services.Interfaces;
     using Web.ViewModels;
 
+    using static Common.NotificationMessagesConstants;
+    using static Common.GeneralApplicationConstants;
+
     public class UrlController : Controller
     {
         private readonly IUrlService urlService;
@@ -23,15 +26,28 @@
 
         public async Task<IActionResult> Statistic(Guid urlId)
         {
+            string originalUrl = await urlService.GetOriginalUrl(urlId);
+
+            if(originalUrl == null)
+            {
+                TempData[WarningMessage] = NotExistingId;
+                return RedirectToAction("Home");
+            }
+
             StatisticUrlViewModel viewModel = await urlService.GetStatistics(urlId);
 
             return View(viewModel);
         }
 
-        //TODO: check for null
         public async Task<IActionResult> RedirectToLong(Guid urlId)
         {
             string originalUrl = await urlService.GetOriginalUrl(urlId);
+
+            if(originalUrl == null)
+            {
+                TempData[WarningMessage] = NotExistingUrl;
+                return RedirectToAction("Home");
+            }
 
             string userIp = HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault() ??
                             HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString()!;
@@ -49,14 +65,20 @@
             return RedirectToAction("Shorter", new { id });
         }
 
-        //TOOD: check for null
         public async Task<IActionResult> Shorter(Guid id)
         {
+            string originalUrl = await urlService.GetOriginalUrl(id);
+
+            if (originalUrl == null)
+            {
+                TempData[WarningMessage] = NotExistingId;
+                return RedirectToAction("Home");
+            }
+
             UrlViewModel viewModel = await urlService.GetUrl(id);
 
             return View(viewModel);
         }
 
-        //TODO: Add error view
     }
 }
