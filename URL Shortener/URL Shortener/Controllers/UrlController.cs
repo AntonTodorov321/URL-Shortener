@@ -24,7 +24,8 @@
         public async Task<IActionResult> Statistic(Guid urlId)
         {
             StatisticUrlViewModel viewModel = await urlService.GetStatistics(urlId);
-            return View();
+
+            return View(viewModel);
         }
 
         //TODO: check for null
