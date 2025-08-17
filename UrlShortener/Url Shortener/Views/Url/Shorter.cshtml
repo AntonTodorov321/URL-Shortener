@@ -3,19 +3,38 @@
     ViewData["Title"] = "Short url";
 }
 
-<h2>URL Shortener Result</h2>
+<div class="d-flex justify-content-center align-items-center">
+    <div style="max-width: 700px; width: 100%;">
+        <h2 class="text-center mb-5">Shortened URL Details</h2>
 
-<br/>
+        <div class="d-flex justify-content-between mb-4">
+            <div>
+                <span class="fw-bold">Your Short URL:</span>
+                <span class="ms-2">
+                    <a asp-controller="Url"
+                       asp-action="RedirectToLong"
+                       asp-route-urlId="@Model.Id">
+                        @Model.ShortUrl
+                    </a>
+                </span>
+            </div>
 
-<p>
-    <strong>Short URL:</strong> 
-    <a asp-controller="Url" asp-action="RedirectToLong" asp-route-urlId="@Model.Id">
-    @Model.ShortUrl
-    </a>
-</p>
+            <div>
+                <span class="fw-bold">Your Secret Code:</span>
+                <span class="ms-2">
+                    <a asp-controller="Url"
+                       asp-action="Statistic"
+                       asp-route-urlId="@Model.Id">
+                        @Model.SecretCode
+                    </a>
+                </span>
+            </div>
+        </div>
 
-<p>
-    <strong>Secret code:</strong> 
-    <a asp-controller="Url" asp-action="Statistic"
-    asp-route-urlId="@Model.Id">@Model.SecretCode</a>
-</p>
+        <div class="text-center">
+            <a asp-controller="Url" asp-action="Home" class="btn btn-primary px-4 py-2">
+                Shorten Another URL
+            </a>
+        </div>
+    </div>
+</div>
