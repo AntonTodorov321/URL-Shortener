@@ -8,7 +8,7 @@ namespace UrlShortener
 
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +26,14 @@ namespace UrlShortener
 
             WebApplication app = builder.Build();
 
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error/500");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
+
+                app.UseHsts();
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -35,7 +43,7 @@ namespace UrlShortener
                 name: "default",
                 pattern: "{controller=Url}/{action=Home}");
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }

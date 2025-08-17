@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>URL_Shortener</RootNamespace>
+    <RootNamespace>UrlShortener</RootNamespace>
     <UserSecretsId>b6df3a9e-9a79-4069-8bfb-9a9775c8bada</UserSecretsId>
   </PropertyGroup>
 
