@@ -20,6 +20,13 @@
 
         public async Task<Guid> ShorterUrl(string longUrl)
         {
+            Url? url = await dbContext.Urls.FirstOrDefaultAsync(url => url.OriginalUrl == longUrl);
+
+            if (url != null)
+            {
+                return url.Id;
+            }
+
             string shortUrl = GenerateHash(8);
             string secretCode = GenerateHash(16);
 
@@ -53,7 +60,7 @@
 
         public async Task<string> GetOriginalUrl(Guid id)
         {
-            var longUrl = await dbContext.Urls.Where(url => url.Id == id)
+            string? longUrl = await dbContext.Urls.Where(url => url.Id == id)
                 .Select(url => url.OriginalUrl)
                 .FirstOrDefaultAsync();
 
@@ -97,6 +104,7 @@
                 TopVisits = topVisits
             };
         }
+
         private static string GenerateHash(int length)
         {
             byte[] bytes = new byte[length];
