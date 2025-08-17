@@ -28,14 +28,13 @@
         {
             string originalUrl = await urlService.GetOriginalUrl(urlId);
 
-            if(originalUrl == null)
+            if (originalUrl == null)
             {
                 TempData[WarningMessage] = NotExistingId;
                 return RedirectToAction("Home");
             }
 
             StatisticUrlViewModel viewModel = await urlService.GetStatistics(urlId);
-
             return View(viewModel);
         }
 
@@ -43,7 +42,7 @@
         {
             string originalUrl = await urlService.GetOriginalUrl(urlId);
 
-            if(originalUrl == null)
+            if (originalUrl == null)
             {
                 TempData[WarningMessage] = NotExistingUrl;
                 return RedirectToAction("Home");
@@ -52,7 +51,11 @@
             string userIp = HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault() ??
                             HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString()!;
 
-            await urlService.RecordAccess(userIp, urlId);
+            try
+            {
+                await urlService.RecordAccess(userIp, urlId);
+            }
+            catch (Exception) { }
 
             return Redirect(originalUrl);
         }
@@ -79,6 +82,5 @@
 
             return View(viewModel);
         }
-
     }
 }

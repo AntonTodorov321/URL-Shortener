@@ -8,6 +8,7 @@
     using Data.Models;
     using Interfaces;
     using Web.ViewModels;
+
     using static Common.GeneralApplicationConstants;
 
     public class UrlService : IUrlService
@@ -74,7 +75,7 @@
             {
                 IpAddress = ip,
                 UrlId = urlId,
-                VisitedAt = DateTime.UtcNow
+                VisitedOn = DateTime.UtcNow
             });
 
             await dbContext.SaveChangesAsync();
@@ -83,7 +84,7 @@
         public async Task<StatisticUrlViewModel> GetStatistics(Guid id)
         {
             int views = await dbContext.UrlVisits
-                .Where(uv => uv.UrlId == id && uv.VisitedAt.Day == DateTime.UtcNow.Day)
+                .Where(uv => uv.UrlId == id && uv.VisitedOn.Day == DateTime.UtcNow.Day)
                 .GroupBy(uv => uv.IpAddress)
                 .CountAsync();
 

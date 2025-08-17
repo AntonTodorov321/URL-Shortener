@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.36105.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener", "URL Shortener\UrlShortener.csproj", "{B425265A-F9A6-46CC-BF2C-83D9ECC67CE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Web", "URL Shortener\UrlShortener.Web.csproj", "{B425265A-F9A6-46CC-BF2C-83D9ECC67CE1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Web.ViewModels", "UrlShortener.Web.ViewModels\UrlShortener.Web.ViewModels.csproj", "{326E7CBA-5475-4F19-8C3F-4FBFAF25412E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Common", "UrlShortener.Common\UrlShortener.Common.csproj", "{29132080-2012-4544-B85F-CDAE9103A123}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Web.Infrastructure", "UrlShortener.Web.Infastructure\UrlShortener.Web.Infrastructure.csproj", "{4E836289-8DE5-42B0-B432-DB615C7888F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{29132080-2012-4544-B85F-CDAE9103A123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29132080-2012-4544-B85F-CDAE9103A123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29132080-2012-4544-B85F-CDAE9103A123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E836289-8DE5-42B0-B432-DB615C7888F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E836289-8DE5-42B0-B432-DB615C7888F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E836289-8DE5-42B0-B432-DB615C7888F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E836289-8DE5-42B0-B432-DB615C7888F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{405C9099-B45B-4867-B68D-332246C6D0B4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C8D8ACA0-3EB3-4518-A808-638A649B39EF} = {EE86FDBA-E54B-4DF3-977F-F780FB9BF196}
 		{326E7CBA-5475-4F19-8C3F-4FBFAF25412E} = {52EA0332-1921-40D8-987E-0A9ED9B5DBDE}
+		{4E836289-8DE5-42B0-B432-DB615C7888F8} = {52EA0332-1921-40D8-987E-0A9ED9B5DBDE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9C16D8C-06F5-4885-809C-CC374D2F6929}

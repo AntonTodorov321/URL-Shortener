@@ -10,5 +10,7 @@
         public static string NotExistingId = "This id does not exist! Please select existing one.";
         public static string NotExistingUrl = 
             "This url does not exist. Please select an existing one";
+
+        public const int UrlMaxLength = 2048;
     }
 }

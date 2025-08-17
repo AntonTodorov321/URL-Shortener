@@ -1,5 +1,8 @@
 ﻿namespace UrlShortener.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class UrlVisits
     {
         public UrlVisits()
@@ -13,8 +16,10 @@
 
         public Url Url { get; set; } = null!;
 
+        [Required]
         public string IpAddress { get; set; } = null!;
 
-        public DateTime VisitedAt { get; set; }
+        [Column(TypeName = "DATE")]
+        public DateTime VisitedOn { get; set; }
     }
 }
