@@ -16,7 +16,6 @@
 
         [Required]
         [MaxLength(UrlMaxLength)]
-        [Url]
         public string OriginalUrl { get; set; } = null!;
 
         public string ShortUrl { get; set; } = null!;

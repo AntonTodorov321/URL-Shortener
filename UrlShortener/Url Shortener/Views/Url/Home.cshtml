@@ -1,15 +1,25 @@
-﻿@{
+﻿@model UrlInputViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
+
 <div class="text-center">
     <form asp-controller="Url" asp-action="Shorter" method="post">
-        <label for="url">Enter url here</label>
+        <label asp-for="Url">Enter url here</label>
         <br />
         <br />
-        <input type="text" name="url" id="url" style="width: 300px" />
+        <input asp-for="Url" style="width: 300px" />
+        <br />
+        <span asp-validation-for="Url" class="text-danger"></span>
         <br />
         <br />
         <button type="submit">Submit</button>
     </form>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

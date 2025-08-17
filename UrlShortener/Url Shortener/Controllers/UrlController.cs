@@ -1,6 +1,7 @@
 ﻿namespace UrlShortener.Controllers
 {
     using System.Threading.Tasks;
+    using System.Text.RegularExpressions;
 
     using Microsoft.AspNetCore.Mvc;
 
@@ -31,10 +32,11 @@
             if (originalUrl == null)
             {
                 TempData[WarningMessage] = NotExistingId;
-                return RedirectToAction("Home");
+                return RedirectToAction(nameof(Home));
             }
 
             StatisticUrlViewModel viewModel = await urlService.GetStatistics(urlId);
+
             return View(viewModel);
         }
 
@@ -45,11 +47,17 @@
             if (originalUrl == null)
             {
                 TempData[WarningMessage] = NotExistingUrl;
-                return RedirectToAction("Home");
+                return RedirectToAction(nameof(Home));
             }
 
             string userIp = HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault() ??
                             HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString()!;
+
+            if (!IsValidIp(userIp))
+            {
+                TempData[WarningMessage] = InvalidIpAddress;
+                return RedirectToAction(nameof(Home));
+            }
 
             try
             {
@@ -61,11 +69,16 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Shorter(string url)
+        public async Task<IActionResult> Shorter(UrlInputViewModel inputUrl)
         {
-            Guid id = await urlService.ShorterUrl(url);
+            if (!ModelState.IsValid)
+            {
+                return View(nameof(Home), inputUrl);
+            }
 
-            return RedirectToAction("Shorter", new { id });
+            Guid id = await urlService.ShorterUrl(inputUrl.Url);
+
+            return RedirectToAction(nameof(Shorter), new { id });
         }
 
         public async Task<IActionResult> Shorter(Guid id)
@@ -75,12 +88,18 @@
             if (originalUrl == null)
             {
                 TempData[WarningMessage] = NotExistingId;
-                return RedirectToAction("Home");
+                return RedirectToAction(nameof(Home));
             }
 
             UrlViewModel viewModel = await urlService.GetUrl(id);
 
             return View(viewModel);
+        }
+
+        private bool IsValidIp(string ip)
+        {
+            return Regex.IsMatch(ip, @"^(\d{1,3}\.){3}\d{1,3}$") &&
+                     ip.Split('.').All(number => int.Parse(number) <= 255);
         }
     }
 }
