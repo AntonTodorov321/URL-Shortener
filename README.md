@@ -51,4 +51,15 @@ This web application allows users to shorten long URLs. Each shortened link auto
 
 5. **Enjoy the app 🎉**
    - Enter a long URL on the home screen to generate a short link.  
-   - Use the secret stats URL to view usage analytics.  
+   - Use the secret stats URL to view usage analytics.
+  
+## Screenshots
+
+### Home Page
+![Home Page](./Screenshots/screenshot-home.png)
+
+### Stats Page
+![Stats Page](./Screenshots/screenshot-stats-page.png)
+
+### Shortener Page
+![Shortener Page](./Screenshots/screenshot-url-shortener.png)
