@@ -3,6 +3,13 @@
 ## Overview
 This web application allows users to shorten long URLs. Each shortened link automatically tracks visits, including client IP addresses, and provides a private secret stats page. The stats page displays unique daily visits and the top 10 IPs by access count.
 
+## Features
+- Shorten long URLs into easy-to-share links  
+- Generate a secret stats URL for each short link  
+- Track visits by client IP
+- Unique daily visit tracking  
+- Top 10 IPs ranked by number of visits  
+
 ## Tech Stack
 - **.NET 8**
 - **ASP.NET Core MVC**
@@ -51,4 +58,15 @@ This web application allows users to shorten long URLs. Each shortened link auto
 
 5. **Enjoy the app 🎉**
    - Enter a long URL on the home screen to generate a short link.  
-   - Use the secret stats URL to view usage analytics.  
+   - Use the secret stats URL to view usage analytics.
+  
+## Screenshots
+
+### Home Page
+![Home Page](./Screenshots/screenshot-home.png)
+
+### Stats Page
+![Stats Page](./Screenshots/screenshot-stats-page.png)
+
+### Shortener Page
+![Shortener Page](./Screenshots/screenshot-url-shortener.png)
